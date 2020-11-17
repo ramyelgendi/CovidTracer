@@ -8,11 +8,13 @@ import java.util.Random;
 public class Main extends Container implements Runnable {
     private boolean pause = false;
     Thread thread;
-    Settings settings = new Settings(30,32,10,30,3,5,10,500,1000,2,1);
+    Settings settings;
     private static String mainPath;
     private final ArrayList<Person> people;
 
-    public Main() {
+    public Main(Settings settings) {
+        this.settings = settings;
+
         this.people = new ArrayList<>();
 
         Random rand = new Random();
@@ -66,21 +68,33 @@ public class Main extends Container implements Runnable {
     }
     public static void main(String[] args) {
         mainPath = "/Users/ramyelgendi/Downloads/CovidTracer/src/com/company/img/";
-        Main main = new Main();
 
-        // Creating GUI
-        JFrame jFrame = new JFrame("Covid Tracker");
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jFrame.setSize(main.settings.xFrame*main.settings.unit,main.settings.yFrame*main.settings.unit);
-        jFrame.setResizable(false);
+        Menu menu = new Menu();
 
-
-        jFrame.setContentPane(main);
-        jFrame.repaint();
-        jFrame.setVisible(true);
+        menu.b.addActionListener(e -> {
+            menu.jFrame.setVisible(false);
+            menu.setSettings();
 
 
-        jFrame.repaint();
+            Main main = new Main(menu.settings);
+            main.settings.printSettings();
+            // Creating GUI
+            JFrame jFrame = new JFrame("Covid Tracker");
+            jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            jFrame.setSize(main.settings.xFrame*main.settings.unit,main.settings.yFrame*main.settings.unit);
+            jFrame.setResizable(false);
+
+
+            jFrame.setContentPane(main);
+            jFrame.repaint();
+            jFrame.setVisible(true);
+
+
+            jFrame.repaint();
+        });
+
+
+
         // write your code here
     }
 
