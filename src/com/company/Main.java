@@ -8,8 +8,8 @@ import java.util.Random;
 public class Main extends Container implements Runnable {
     private boolean end = false,getnewDirec = true;
     private int random = 0;
-    private Thread thread;
-    private Settings settings;
+    private final Thread thread;
+    private final Settings settings;
     private static String mainPath;
     private final ArrayList<Person> people;
     public int time=0;
@@ -204,7 +204,13 @@ public class Main extends Container implements Runnable {
 //        }
 
         if(end){
-
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("\n Program Terminated.\n");
+            System.exit(0);
         }else {
             thread.run();
         }
