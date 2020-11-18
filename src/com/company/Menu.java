@@ -1,8 +1,6 @@
 package com.company;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.util.Hashtable;
 
@@ -12,7 +10,7 @@ public class Menu extends Container {
     public Settings settings;
     public JFrame jFrame = new JFrame("Covid Tracker");
 
-    public JSlider slider_width = new JSlider(JSlider.HORIZONTAL, 0, 100, 30);int width_=30;
+    public JSlider slider_width = new JSlider(JSlider.HORIZONTAL, 0, 100, 30);
     public JSlider slider_height = new JSlider(JSlider.HORIZONTAL, 0, 100, 30);
     public JSlider slider_stars = new JSlider(JSlider.HORIZONTAL, 0, 100, 30);
     public JSlider slider_covid = new JSlider(JSlider.HORIZONTAL, 0, 100, 10);
@@ -173,12 +171,4 @@ public class Menu extends Container {
         settings = new Settings(slider_width.getValue(),slider_height.getValue()+2,10,slider_stars.getValue(),slider_covid.getValue()*slider_stars.getValue()/100,slider_step.getValue(),slider_walk.getValue(),slider_waitMIN.getValue(),slider_waitMAX.getValue(),slider_timetoflag.getValue(),slider_safe.getValue());
 
     }
-
-    @Override
-    public void paint(Graphics g){
-//        g.drawImage(background,x,y,width,height,null);
-//        g.drawRect(mountainRectangle.x,mountainRectangle.y,mountainRectangle.width,mountainRectangle.height);
-
-    }
-
 }

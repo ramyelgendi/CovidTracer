@@ -6,17 +6,90 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Person extends Component implements Runnable {
-    public boolean stop = false,hasCovid,isPotential;
-    public int exposureTime = 0;
+
+    // Variables
+    private boolean stop = false,hasCovid,isPotential;
     Thread thread;
     Settings settings;
     private final Image star,starOrange;
-    public final Rectangle starRect;
+    private final Rectangle starRect;
     private final int height,width;
-    public int x,y;
-    public int angle;
+    private int x,y, angle,exposureTime=0;
 
-    public Person(String path,String orangePath,int x,int y,int width,int height,Settings settings,boolean hasCovid){
+    // Getters & Setters
+    public boolean isStop() {
+        return stop;
+    }
+
+    public void setStop(boolean stop) {
+        this.stop = stop;
+    }
+
+    public boolean isHasCovid() {
+        return hasCovid;
+    }
+
+    public void setHasCovid(boolean hasCovid) {
+        this.hasCovid = hasCovid;
+    }
+
+    public boolean isPotential() {
+        return isPotential;
+    }
+
+    public void setPotential(boolean potential) {
+        isPotential = potential;
+    }
+
+    public Rectangle getStarRect() {
+        return starRect;
+    }
+
+    public int getExposureTime() {
+        return exposureTime;
+    }
+
+    public void setExposureTime(int exposureTime) {
+        this.exposureTime = exposureTime;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
+    }
+
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    @Override
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getAngle() {
+        return angle;
+    }
+
+    public void setAngle(int angle) {
+        this.angle = angle;
+    }
+
+    public Person(String path, String orangePath, int x, int y, int width, int height, Settings settings, boolean hasCovid){
         star = new ImageIcon(path).getImage();
         starOrange = new ImageIcon(orangePath).getImage();
         starRect = new Rectangle(x-settings.safeSocialDistance*10/2,y-settings.safeSocialDistance*10/2,width+settings.safeSocialDistance*10,height+settings.safeSocialDistance*10);

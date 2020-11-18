@@ -12,7 +12,7 @@ public class Main extends Container implements Runnable {
     private final Settings settings;
     private static String mainPath;
     private final ArrayList<Person> people;
-    public int time=0;
+    public int time=0,totalCovid=0;
 
     public Main(Settings settings) {
         this.settings = settings;
@@ -39,7 +39,7 @@ public class Main extends Container implements Runnable {
 //                System.out.println(x + "," + y);
 
                 for (Person person : people) {
-                    if (!people.get(i).equals(person) && person.starRect.intersects(people.get(i).starRect)) {
+                    if (!people.get(i).equals(person) && person.getStarRect().intersects(people.get(i).getStarRect())) {
 //                        System.out.println("Collusion");
                         people.remove(i);
                         flag = true;
@@ -94,27 +94,24 @@ public class Main extends Container implements Runnable {
 
             jFrame.repaint();
         });
-
-
-
-        // write your code here
     }
 
     void endProg(){
         System.out.println("------------------------- Program ended at "+time);
+        System.out.println(" Out of "+settings.numberOfPeople+" and "+settings.numberOfCovid+" have covid, now "+totalCovid+" are potential!");
         end = true;
         for(Person person : people){
-            person.stop = true;
+            person.setStop(true);
 
         }
     }
 
     void checkExposure(){
         for (Person covidPerson : people) {
-            if(covidPerson.hasCovid)
+            if(covidPerson.isHasCovid())
                 for (Person noncovidPerson : people) {
-                    if (covidPerson.starRect.intersects(noncovidPerson.starRect) && (covidPerson != noncovidPerson) && !noncovidPerson.isPotential && !noncovidPerson.hasCovid) {
-                        noncovidPerson.exposureTime++;
+                    if (covidPerson.getStarRect().intersects(noncovidPerson.getStarRect()) && (covidPerson != noncovidPerson) && !noncovidPerson.isPotential() && !noncovidPerson.isHasCovid()) {
+                       noncovidPerson.setExposureTime( noncovidPerson.getExposureTime() + 1);
 //                        System.out.println(noncovidPerson.thread.getName()+" is exposed for "+noncovidPerson.exposureTime+" seconds.");
                     }
                 }
@@ -123,18 +120,19 @@ public class Main extends Container implements Runnable {
 
     void checkPotentialOrSafe(){
         for (Person person : people) {
-            if(person.exposureTime > settings.timeToFlag && !person.isPotential) {
-                person.isPotential = true;
+            if(person.getExposureTime() > settings.timeToFlag && !person.isPotential()) {
+                person.setPotential(true);
                 System.out.println(person.thread.getName()+" is now potential!");
+                totalCovid++;
             }
             boolean covidFlag = false;
-            if(!person.hasCovid && person.exposureTime>0 && !person.isPotential){
+            if(!person.isHasCovid() && person.getExposureTime()>0 && !person.isPotential()){
                 for(Person covid : people) {
-                    if(covid.hasCovid && covid.starRect.intersects(person.starRect))
+                    if(covid.isHasCovid() && covid.getStarRect().intersects(person.getStarRect()))
                         covidFlag = true;
                 }
                 if(!covidFlag){
-                    person.exposureTime=0;
+                    person.setExposureTime(0);
 //                    System.out.println(person.thread.getName()+" is now safe!");
                 }
             }
@@ -146,7 +144,7 @@ public class Main extends Container implements Runnable {
 //        pause = false;
         for(Person person : people){
 //            person.pause = false;
-            person.angle = person.getRandomAngle();
+            person.setAngle(person.getRandomAngle());
         }
 //        counter = 0;
     }
