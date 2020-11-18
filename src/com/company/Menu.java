@@ -17,8 +17,8 @@ public class Menu extends Container {
     public JSlider slider_stars = new JSlider(JSlider.HORIZONTAL, 0, 100, 30);
     public JSlider slider_covid = new JSlider(JSlider.HORIZONTAL, 0, 100, 10);
     public JSlider slider_walk = new JSlider(JSlider.HORIZONTAL, 0, 180, 60);
-    public JSlider slider_waitMIN = new JSlider(JSlider.HORIZONTAL, 0, 3000, 500);
-    public JSlider slider_waitMAX = new JSlider(JSlider.HORIZONTAL, 0, 3000, 1000);
+    public JSlider slider_waitMIN = new JSlider(JSlider.HORIZONTAL, 0, 5000, 500);
+    public JSlider slider_waitMAX = new JSlider(JSlider.HORIZONTAL, 0, 5000, 1000);
     public JSlider slider_safe = new JSlider(JSlider.HORIZONTAL, 0, 25, 1);
     public JSlider slider_step = new JSlider(JSlider.HORIZONTAL, 0, 30, 10);
     public JSlider slider_timetoflag = new JSlider(JSlider.HORIZONTAL, 0, 30, 2);
@@ -49,6 +49,11 @@ public class Menu extends Container {
         small_time.put(2000, new JLabel("2"));
         small_time.put(2500, new JLabel("2.5"));
         small_time.put(3000, new JLabel("3"));
+        small_time.put(3500, new JLabel("3.5"));
+        small_time.put(4000, new JLabel("4"));
+        small_time.put(4500, new JLabel("4.5"));
+        small_time.put(5000, new JLabel("5"));
+
 
         Hashtable<Integer, JLabel> step_distance = new Hashtable<>();        // Add positions label in the slider
         step_distance.put(0, new JLabel("0"));
@@ -88,10 +93,10 @@ public class Menu extends Container {
         slider_walk.setPaintLabels(true);slider_walk.setFocusable(false);
 
         slider_waitMIN.setLabelTable(small_time);slider_waitMIN.setMajorTickSpacing(500);slider_waitMIN.setPaintTicks(true);
-        slider_waitMIN.setPaintLabels(true);slider_waitMIN.setFocusable(false);
+        slider_waitMIN.setPaintLabels(true);slider_waitMIN.setFocusable(false);slider_waitMIN.setSnapToTicks(true);
 
         slider_waitMAX.setLabelTable(small_time);slider_waitMAX.setMajorTickSpacing(500);slider_waitMAX.setPaintTicks(true);
-        slider_waitMAX.setPaintLabels(true);slider_waitMAX.setFocusable(false);
+        slider_waitMAX.setPaintLabels(true);slider_waitMAX.setFocusable(false);slider_waitMAX.setSnapToTicks(true);
 
         slider_safe.setLabelTable(position);slider_safe.setMajorTickSpacing(1);slider_safe.setPaintTicks(true);
         slider_safe.setPaintLabels(true);slider_safe.setFocusable(false);
@@ -149,7 +154,7 @@ public class Menu extends Container {
         jFrame.setLayout(new BorderLayout());
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        jFrame.setSize(400,800);
+        jFrame.setSize(500,800);
         jFrame.setResizable(false);
 
         b.setBounds(50,100,95,30);
@@ -166,7 +171,6 @@ public class Menu extends Container {
 
     void setSettings(){
         settings = new Settings(slider_width.getValue(),slider_height.getValue()+2,10,slider_stars.getValue(),slider_covid.getValue()*slider_stars.getValue()/100,slider_step.getValue(),slider_walk.getValue(),slider_waitMIN.getValue(),slider_waitMAX.getValue(),slider_timetoflag.getValue(),slider_safe.getValue());
-        System.out.println(slider_width.getValue());
 
     }
 

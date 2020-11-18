@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Main extends Container implements Runnable {
-    private boolean pause = false;
-    Thread thread;
-    Settings settings;
+    private boolean end = false,getnewDirec = true;
+    private int random = 0;
+    private Thread thread;
+    private Settings settings;
     private static String mainPath;
     private final ArrayList<Person> people;
+    public int time=0;
 
     public Main(Settings settings) {
         this.settings = settings;
@@ -98,13 +100,11 @@ public class Main extends Container implements Runnable {
         // write your code here
     }
 
-    public int counter = 0,time=0;
-
-    void pauseProg(){
-        System.out.println("------------------------- Program paused at "+time);
-        pause = true;
+    void endProg(){
+        System.out.println("------------------------- Program ended at "+time);
+        end = true;
         for(Person person : people){
-            person.pause = true;
+            person.stop = true;
 
         }
     }
@@ -115,7 +115,7 @@ public class Main extends Container implements Runnable {
                 for (Person noncovidPerson : people) {
                     if (covidPerson.starRect.intersects(noncovidPerson.starRect) && (covidPerson != noncovidPerson) && !noncovidPerson.isPotential && !noncovidPerson.hasCovid) {
                         noncovidPerson.exposureTime++;
-                        System.out.println(noncovidPerson.thread.getName()+" is exposed for "+noncovidPerson.exposureTime+" seconds.");
+//                        System.out.println(noncovidPerson.thread.getName()+" is exposed for "+noncovidPerson.exposureTime+" seconds.");
                     }
                 }
         }
@@ -123,7 +123,7 @@ public class Main extends Container implements Runnable {
 
     void checkPotentialOrSafe(){
         for (Person person : people) {
-            if(person.exposureTime >= settings.timeToFlag && !person.isPotential) {
+            if(person.exposureTime > settings.timeToFlag && !person.isPotential) {
                 person.isPotential = true;
                 System.out.println(person.thread.getName()+" is now potential!");
             }
@@ -135,45 +135,79 @@ public class Main extends Container implements Runnable {
                 }
                 if(!covidFlag){
                     person.exposureTime=0;
-                    System.out.println(person.thread.getName()+" is now safe!");
+//                    System.out.println(person.thread.getName()+" is now safe!");
                 }
             }
         }
     }
 
-    void contProgram(){
-        System.out.println("------------------------- Program continued at "+time);
-        pause = false;
+    void changeDirection(){
+//        System.out.println("-------------------------------------- People changing direction at time "+time);
+//        pause = false;
         for(Person person : people){
-            person.pause = false;
+//            person.pause = false;
             person.angle = person.getRandomAngle();
         }
-        counter = 0;
+//        counter = 0;
     }
-
 
     @Override
     public void run() {
-        counter++;
         time++;
+        Random rand = new Random();
         try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
+
         repaint();
-//        System.out.println(counter);
 
-        if(counter == settings.walkLife)
-            pauseProg();
+        if(getnewDirec){
+            random = (rand.nextInt(settings.waitTimeMAX));
+            while (random>settings.waitTimeMAX || random<settings.waitTimeMIN)
+                random = (rand.nextInt(settings.waitTimeMAX));
 
-        if(!pause)
-            checkExposure();
+            getnewDirec = false;
+            if(random<1000) {
+                changeDirection();
+//                System.out.println("** Change Direction at less than a second.");
+            }
+        } else {
+            if (random > 1000) {
+                int randomInSeconds = Integer.parseInt(Integer.toString(random).substring(0, 1));
+                if(time % randomInSeconds == 0) {
+                    changeDirection();
+                    getnewDirec = true;
+//                    System.out.println("** Change Direction at more than a second.");
+                }
+            } else {
+                changeDirection();
+                getnewDirec = true;
+//                System.out.println("** Change Direction at less than a second 2.");
 
+            }
+        }
+//        System.out.println(time+" is the time, and "+random+" is the random");
+
+
+
+//        System.out.println(random);
+
+//        if(counter% (random) == 0)
+//            changeDirection();
+
+        checkExposure();
         checkPotentialOrSafe();
 
-        if(counter == settings.walkLife+5){
-           contProgram();
+        if(time == settings.walkLife)
+            endProg();
 
+//        if(!pause)
+//        if(counter == settings.walkLife+5){
+//        }
+
+        if(end){
+
+        }else {
+            thread.run();
         }
-
-        thread.run();
 
     }
 }

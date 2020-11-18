@@ -30,15 +30,17 @@ public class Settings {
     }
 
     public void printSettings(){
-        System.out.println("xFrame: "+xFrame);
-        System.out.println("yFrame: "+yFrame);
-        System.out.println("numberOfPeople: "+numberOfPeople);
-        System.out.println("numberOfCovid: "+numberOfCovid);
-        System.out.println("walkLife: "+walkLife);
-        System.out.println("waitTimeMIN: "+waitTimeMIN);
-        System.out.println("waitTimeMAX: "+waitTimeMAX);
-        System.out.println("timeToFlag: "+timeToFlag);
-        System.out.println("safeSocialDistance: "+safeSocialDistance);
+        System.out.println("Simulatiom beingging with the following settings:-");
+        System.out.println("- xFrame: "+xFrame);
+        System.out.println("- yFrame: "+yFrame);
+        System.out.println("- numberOfPeople: "+numberOfPeople);
+        System.out.println("- numberOfCovid: "+numberOfCovid);
+        System.out.println("- walkLife: "+walkLife);
+        System.out.println("- waitTimeMIN: "+waitTimeMIN);
+        System.out.println("- waitTimeMAX: "+waitTimeMAX);
+        System.out.println("- timeToFlag: "+timeToFlag);
+        System.out.println("- safeSocialDistance: "+safeSocialDistance);
+        System.out.println("\n");
     }
 
 }

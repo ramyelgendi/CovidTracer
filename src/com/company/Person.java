@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Person extends Component implements Runnable {
-    public boolean pause = false,hasCovid,isPotential;
+    public boolean stop = false,hasCovid,isPotential;
     public int exposureTime = 0;
     Thread thread;
     Settings settings;
@@ -142,11 +142,11 @@ public class Person extends Component implements Runnable {
     public void run() {
         Random rand = new Random();
         try { Thread.sleep(rand.nextInt(settings.waitTimeMAX)+settings.waitTimeMIN); } catch (InterruptedException e) { e.printStackTrace(); }
-        if(!pause)
-            Move(settings.moveStep, angle, settings.xFrame * settings.unit-3, settings.yFrame * settings.unit - 28);
 
-        thread.run();
-
+        if(!stop) {
+            Move(settings.moveStep, angle, settings.xFrame * settings.unit - 3, settings.yFrame * settings.unit - 28);
+            thread.run();
+        }
 
     }
 }
