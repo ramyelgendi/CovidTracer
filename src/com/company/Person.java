@@ -1,3 +1,6 @@
+// Ramy ElGendi
+// 900170269
+
 package com.company;
 
 import javax.swing.*;
@@ -14,25 +17,19 @@ public class Person extends Component implements Runnable {
     private final Thread thread;
     private final Settings settings;
     private final Image star,starOrange;
-
-    public Thread getThread() {
-        return thread;
-    }
-
     private final Rectangle starRect;
     private final int height,width;
     private int x,y, angle,exposureTime=0;
 
     // Getters & Setters
+    public Thread getThread() { return thread; }
     public void setStop(boolean stop) {
         this.stop = stop;
     }
     public boolean isHasCovid() {
         return hasCovid;
     }
-    public boolean isPotential() {
-        return isPotential;
-    }
+    public boolean isPotential() { return isPotential; }
     public void setPotential(boolean potential) {
         isPotential = potential;
     }
@@ -47,9 +44,7 @@ public class Person extends Component implements Runnable {
     }
 
     @Override
-    public int getHeight() {
-        return height;
-    }
+    public int getHeight() { return height; }
 
     @Override
     public int getWidth() {
@@ -60,7 +55,6 @@ public class Person extends Component implements Runnable {
     public int getX() {
         return x;
     }
-
 
     @Override
     public int getY() {

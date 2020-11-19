@@ -1,3 +1,6 @@
+// Ramy ElGendi
+// 900170269
+
 package com.company;
 
 import javax.swing.*;
@@ -36,11 +39,8 @@ public class Main extends Container implements Runnable {
                 else
                     people.add(i, new Person(mainPath + "blue_star.png",mainPath + "orange_star.png", x, y, 5, 5,settings,false));
 
-//                System.out.println(x + "," + y);
-
                 for (Person person : people) {
                     if (!people.get(i).equals(person) && person.getStarRect().intersects(people.get(i).getStarRect())) {
-//                        System.out.println("Collusion");
                         people.remove(i);
                         flag = true;
                         break;
@@ -80,25 +80,22 @@ public class Main extends Container implements Runnable {
 
             Main main = new Main(menu.getSettings());
             main.settings.printSettings();
+
             // Creating GUI
             JFrame jFrame = new JFrame("Covid Tracker");
             jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             jFrame.setSize(main.settings.getxFrame()*main.settings.getUnit(),main.settings.getyFrame()*main.settings.getUnit());
             jFrame.setResizable(false);
-
-
             jFrame.setContentPane(main);
             jFrame.repaint();
             jFrame.setVisible(true);
-
-
             jFrame.repaint();
         });
     }
 
     void endProg(){
-        System.out.println("------------------------- Program ended at "+time);
-        System.out.println(" Out of "+settings.getNumberOfPeople()+" and "+settings.getNumberOfCovid()+" have covid, now "+totalCovid+" are potential!");
+        System.out.println("Program ended at "+time);
+        System.out.println("Out of "+settings.getNumberOfPeople()+" and "+settings.getNumberOfCovid()+" have covid, now "+totalCovid+" are potential!");
         end = true;
         for(Person person : people){
             person.setStop(true);
@@ -140,13 +137,9 @@ public class Main extends Container implements Runnable {
     }
 
     void changeDirection(){
-//        System.out.println("-------------------------------------- People changing direction at time "+time);
-//        pause = false;
         for(Person person : people){
-//            person.pause = false;
             person.setAngle(person.getRandomAngle());
         }
-//        counter = 0;
     }
 
     @Override
@@ -165,7 +158,6 @@ public class Main extends Container implements Runnable {
             getnewDirec = false;
             if(random<1000) {
                 changeDirection();
-//                System.out.println("** Change Direction at less than a second.");
             }
         } else {
             if (random > 1000) {
@@ -173,33 +165,17 @@ public class Main extends Container implements Runnable {
                 if(time % randomInSeconds == 0) {
                     changeDirection();
                     getnewDirec = true;
-//                    System.out.println("** Change Direction at more than a second.");
                 }
             } else {
                 changeDirection();
                 getnewDirec = true;
-//                System.out.println("** Change Direction at less than a second 2.");
-
             }
         }
-//        System.out.println(time+" is the time, and "+random+" is the random");
-
-
-
-//        System.out.println(random);
-
-//        if(counter% (random) == 0)
-//            changeDirection();
-
         checkExposure();
         checkPotentialOrSafe();
 
         if(time == settings.getWalkLife())
             endProg();
-
-//        if(!pause)
-//        if(counter == settings.walkLife+5){
-//        }
 
         if(end){
             try {
@@ -212,6 +188,5 @@ public class Main extends Container implements Runnable {
         }else {
             thread.run();
         }
-
     }
 }

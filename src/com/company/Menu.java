@@ -1,3 +1,6 @@
+// Ramy ElGendi
+// 900170269
+
 package com.company;
 
 import javax.swing.*;
@@ -5,12 +8,9 @@ import java.awt.*;
 import java.util.Hashtable;
 
 public class Menu extends Container {
-
-    private final JButton b=new JButton("Begin Program");
     private Settings settings;
+    private final JButton b=new JButton("Begin Program");
     private final JFrame jFrame = new JFrame("Covid Tracker");
-
-
     private final JSlider slider_width = new JSlider(JSlider.HORIZONTAL, 0, 100, 30);
     private final JSlider slider_height = new JSlider(JSlider.HORIZONTAL, 0, 100, 30);
     private final JSlider slider_stars = new JSlider(JSlider.HORIZONTAL, 0, 100, 30);
@@ -22,17 +22,9 @@ public class Menu extends Container {
     private final JSlider slider_step = new JSlider(JSlider.HORIZONTAL, 0, 30, 10);
     private final JSlider slider_timetoflag = new JSlider(JSlider.HORIZONTAL, 0, 30, 2);
 
-    public JButton getB() {
-        return b;
-    }
-
-    public Settings getSettings() {
-        return settings;
-    }
-
-    public JFrame getjFrame() {
-        return jFrame;
-    }
+    public JButton getB() { return b; }
+    public Settings getSettings() { return settings; }
+    public JFrame getjFrame() { return jFrame; }
 
     public Menu() {
         // Hashtable For Labels
@@ -65,13 +57,11 @@ public class Menu extends Container {
         small_time.put(4500, new JLabel("4.5"));
         small_time.put(5000, new JLabel("5"));
 
-
         Hashtable<Integer, JLabel> step_distance = new Hashtable<>();        // Add positions label in the slider
         step_distance.put(0, new JLabel("0"));
         step_distance.put(10, new JLabel("1"));
         step_distance.put(20, new JLabel("2"));
         step_distance.put(30, new JLabel("3"));
-
 
         // Labels
         JLabel width = new JLabel("Frame Width: 30 m", JLabel.CENTER);
@@ -85,8 +75,6 @@ public class Menu extends Container {
         JLabel step = new JLabel("Walking Step: 1.0 m", JLabel.CENTER);
 
         JLabel timetoflag = new JLabel("Time To Flag: 2 sec", JLabel.CENTER);
-
-
 
         slider_width.setLabelTable(position);slider_width.setMajorTickSpacing(5);slider_width.setPaintTicks(true);
         slider_width.setPaintLabels(true);slider_width.setFocusable(false);
@@ -137,7 +125,6 @@ public class Menu extends Container {
         slider_timetoflag.addChangeListener(e -> timetoflag.setText("Time To Flag: " + ((JSlider)e.getSource()).getValue()+" sec"));
         slider_step.addChangeListener(e -> step.setText("Walking Step: " + ((JSlider)e.getSource()).getValue()/10.0+" m"));
 
-
         JPanel panel=new JPanel(new GridLayout(0, 2));
         JPanel panel2=new JPanel();
 
@@ -173,17 +160,12 @@ public class Menu extends Container {
         panel2.add(panel);
         panel2.add(b);
         jFrame.add(panel2);
-
         jFrame.repaint();
         jFrame.setVisible(true);
-
         jFrame.repaint();
     }
 
     void setSettings(){
         settings = new Settings(slider_width.getValue(),slider_height.getValue()+2,10,slider_stars.getValue(),slider_covid.getValue()*slider_stars.getValue()/100,slider_step.getValue(),slider_walk.getValue(),slider_waitMIN.getValue(),slider_waitMAX.getValue(),slider_timetoflag.getValue(),slider_safe.getValue());
-
     }
-
-
 }

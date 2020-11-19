@@ -1,3 +1,6 @@
+// Ramy ElGendi
+// 900170269
+
 package com.company;
 
 public class Settings {
@@ -9,54 +12,43 @@ public class Settings {
     private final int moveStep;
     private final int walkLife;
     private final int waitTimeMIN;
+    private final int waitTimeMAX;
+    private final int timeToFlag;
+    private final int safeSocialDistance;
 
     public int getxFrame() {
         return xFrame;
     }
-
     public int getyFrame() {
         return yFrame;
     }
-
     public int getUnit() {
         return unit;
     }
-
     public int getNumberOfPeople() {
         return numberOfPeople;
     }
-
     public int getNumberOfCovid() {
         return numberOfCovid;
     }
-
     public int getMoveStep() {
         return moveStep;
     }
-
     public int getWalkLife() {
         return walkLife;
     }
     public int getWaitTimeMIN() {
         return waitTimeMIN;
     }
-
     public int getWaitTimeMAX() {
         return waitTimeMAX;
     }
-
     public int getTimeToFlag() {
         return timeToFlag;
     }
-
     public int getSafeSocialDistance() {
         return safeSocialDistance;
     }
-
-    private final int waitTimeMAX;
-    private final int timeToFlag;
-    private final int safeSocialDistance;
-
 
     public Settings(int xFrame,int yFrame,int unit,int numberOfPeople,int numberOfCovid,int moveStep, int walkLife,int waitTimeMIN,int waitTimeMAX, int timeToFlag, int safeSocialDistance){
         this.xFrame = xFrame;
