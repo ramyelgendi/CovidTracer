@@ -12,7 +12,7 @@ public class Main extends Container implements Runnable {
     private final Settings settings;
     private static String mainPath;
     private final ArrayList<Person> people;
-    public int time=0,totalCovid=0;
+    private int time=0,totalCovid=0;
 
     public Main(Settings settings) {
         this.settings = settings;
@@ -20,18 +20,18 @@ public class Main extends Container implements Runnable {
         this.people = new ArrayList<>();
 
         Random rand = new Random();
-        for (int i = 0; i<settings.numberOfPeople; i++) {
+        for (int i = 0; i<settings.getNumberOfPeople(); i++) {
             boolean flag = true;
 
             while(flag) {
                 flag = false;
 
-                int x = settings.xFrame * settings.unit, y = settings.yFrame * settings.unit;
-                while (x > settings.xFrame * settings.unit - 20 || y > settings.yFrame * settings.unit - 40) {
-                    x = rand.nextInt(settings.xFrame * settings.unit) + settings.unit;
-                    y = rand.nextInt(settings.xFrame * settings.unit) + settings.unit;
+                int x = settings.getxFrame() * settings.getUnit(), y = settings.getyFrame() * settings.getUnit();
+                while (x > settings.getxFrame() * settings.getUnit() - 20 || y > settings.getyFrame() * settings.getUnit() - 40) {
+                    x = rand.nextInt(settings.getxFrame() * settings.getUnit()) + settings.getUnit();
+                    y = rand.nextInt(settings.getxFrame() * settings.getUnit()) + settings.getUnit();
                 }
-                if(i<settings.numberOfCovid)
+                if(i<settings.getNumberOfCovid())
                     people.add(i, new Person(mainPath + "red_star.png",mainPath + "orange_star.png", x, y, 5, 5,settings,true));
                 else
                     people.add(i, new Person(mainPath + "blue_star.png",mainPath + "orange_star.png", x, y, 5, 5,settings,false));
@@ -54,18 +54,18 @@ public class Main extends Container implements Runnable {
 
     @Override
     public void paint(Graphics g){
-        for (int i = 0; i<settings.numberOfPeople; i++) {
+        for (int i = 0; i<settings.getNumberOfPeople(); i++) {
             people.get(i).paint(g);
         }
 
         // Draw Grid
         g.setFont(new Font("TimesRoman", Font.PLAIN, 10));
-        for(int j=0;j<=settings.xFrame*settings.unit;j+=2*settings.unit){
+        for(int j=0;j<=settings.getxFrame()*settings.getUnit();j+=2*settings.getUnit()){
             if(j!=0)
-                g.drawString(j/settings.unit+"",j,8);
+                g.drawString(j/settings.getUnit()+"",j,8);
         }
-        for(int j=0;j<=settings.yFrame*settings.unit;j+=2*settings.unit){
-           g.drawString(j/settings.unit+"",5,j);
+        for(int j=0;j<=settings.getyFrame()*settings.getUnit();j+=2*settings.getUnit()){
+           g.drawString(j/settings.getUnit()+"",5,j);
         }
     }
     public static void main(String[] args) {
@@ -73,17 +73,17 @@ public class Main extends Container implements Runnable {
 
         Menu menu = new Menu();
 
-        menu.b.addActionListener(e -> {
-            menu.jFrame.setVisible(false);
+        menu.getB().addActionListener(e -> {
+            menu.getjFrame().setVisible(false);
             menu.setSettings();
 
 
-            Main main = new Main(menu.settings);
+            Main main = new Main(menu.getSettings());
             main.settings.printSettings();
             // Creating GUI
             JFrame jFrame = new JFrame("Covid Tracker");
             jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            jFrame.setSize(main.settings.xFrame*main.settings.unit,main.settings.yFrame*main.settings.unit);
+            jFrame.setSize(main.settings.getxFrame()*main.settings.getUnit(),main.settings.getyFrame()*main.settings.getUnit());
             jFrame.setResizable(false);
 
 
@@ -98,7 +98,7 @@ public class Main extends Container implements Runnable {
 
     void endProg(){
         System.out.println("------------------------- Program ended at "+time);
-        System.out.println(" Out of "+settings.numberOfPeople+" and "+settings.numberOfCovid+" have covid, now "+totalCovid+" are potential!");
+        System.out.println(" Out of "+settings.getNumberOfPeople()+" and "+settings.getNumberOfCovid()+" have covid, now "+totalCovid+" are potential!");
         end = true;
         for(Person person : people){
             person.setStop(true);
@@ -120,9 +120,9 @@ public class Main extends Container implements Runnable {
 
     void checkPotentialOrSafe(){
         for (Person person : people) {
-            if(person.getExposureTime() > settings.timeToFlag && !person.isPotential()) {
+            if(person.getExposureTime() > settings.getTimeToFlag() && !person.isPotential()) {
                 person.setPotential(true);
-                System.out.println(person.thread.getName()+" is now potential!");
+                System.out.println(person.getThread().getName()+" is now potential!");
                 totalCovid++;
             }
             boolean covidFlag = false;
@@ -158,9 +158,9 @@ public class Main extends Container implements Runnable {
         repaint();
 
         if(getnewDirec){
-            random = (rand.nextInt(settings.waitTimeMAX));
-            while (random>settings.waitTimeMAX || random<settings.waitTimeMIN)
-                random = (rand.nextInt(settings.waitTimeMAX));
+            random = (rand.nextInt(settings.getWaitTimeMAX()));
+            while (random>settings.getWaitTimeMAX() || random<settings.getWaitTimeMIN())
+                random = (rand.nextInt(settings.getWaitTimeMAX()));
 
             getnewDirec = false;
             if(random<1000) {
@@ -194,7 +194,7 @@ public class Main extends Container implements Runnable {
         checkExposure();
         checkPotentialOrSafe();
 
-        if(time == settings.walkLife)
+        if(time == settings.getWalkLife())
             endProg();
 
 //        if(!pause)

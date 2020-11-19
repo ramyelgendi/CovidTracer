@@ -8,47 +8,40 @@ import java.util.Random;
 public class Person extends Component implements Runnable {
 
     // Variables
-    private boolean stop = false,hasCovid,isPotential;
-    Thread thread;
-    Settings settings;
+    private boolean stop = false;
+    private final boolean hasCovid;
+    private boolean isPotential;
+    private final Thread thread;
+    private final Settings settings;
     private final Image star,starOrange;
+
+    public Thread getThread() {
+        return thread;
+    }
+
     private final Rectangle starRect;
     private final int height,width;
     private int x,y, angle,exposureTime=0;
 
     // Getters & Setters
-    public boolean isStop() {
-        return stop;
-    }
-
     public void setStop(boolean stop) {
         this.stop = stop;
     }
-
     public boolean isHasCovid() {
         return hasCovid;
     }
-
-    public void setHasCovid(boolean hasCovid) {
-        this.hasCovid = hasCovid;
-    }
-
     public boolean isPotential() {
         return isPotential;
     }
-
     public void setPotential(boolean potential) {
         isPotential = potential;
     }
-
     public Rectangle getStarRect() {
         return starRect;
     }
-
     public int getExposureTime() {
         return exposureTime;
     }
-
     public void setExposureTime(int exposureTime) {
         this.exposureTime = exposureTime;
     }
@@ -68,23 +61,11 @@ public class Person extends Component implements Runnable {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
 
     @Override
     public int getY() {
         return y;
     }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public int getAngle() {
-        return angle;
-    }
-
     public void setAngle(int angle) {
         this.angle = angle;
     }
@@ -92,7 +73,7 @@ public class Person extends Component implements Runnable {
     public Person(String path, String orangePath, int x, int y, int width, int height, Settings settings, boolean hasCovid){
         star = new ImageIcon(path).getImage();
         starOrange = new ImageIcon(orangePath).getImage();
-        starRect = new Rectangle(x-settings.safeSocialDistance*10/2,y-settings.safeSocialDistance*10/2,width+settings.safeSocialDistance*10,height+settings.safeSocialDistance*10);
+        starRect = new Rectangle(x-settings.getSafeSocialDistance()*10/2,y-settings.getSafeSocialDistance()*10/2,width+settings.getSafeSocialDistance()*10,height+settings.getSafeSocialDistance()*10);
         angle = getRandomAngle();
 
         this.x = x;
@@ -214,10 +195,10 @@ public class Person extends Component implements Runnable {
     @Override
     public void run() {
         Random rand = new Random();
-        try { Thread.sleep(rand.nextInt(settings.waitTimeMAX)+settings.waitTimeMIN); } catch (InterruptedException e) { e.printStackTrace(); }
+        try { Thread.sleep(rand.nextInt(settings.getWaitTimeMAX())+settings.getWaitTimeMIN()); } catch (InterruptedException e) { e.printStackTrace(); }
 
         if(!stop) {
-            Move(settings.moveStep, angle, settings.xFrame * settings.unit - 3, settings.yFrame * settings.unit - 28);
+            Move(settings.getMoveStep(), angle, settings.getxFrame() * settings.getUnit() - 3, settings.getyFrame() * settings.getUnit() - 28);
             thread.run();
         }
 

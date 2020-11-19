@@ -6,20 +6,33 @@ import java.util.Hashtable;
 
 public class Menu extends Container {
 
-    public JButton b=new JButton("Begin Program");
-    public Settings settings;
-    public JFrame jFrame = new JFrame("Covid Tracker");
+    private final JButton b=new JButton("Begin Program");
+    private Settings settings;
+    private final JFrame jFrame = new JFrame("Covid Tracker");
 
-    public JSlider slider_width = new JSlider(JSlider.HORIZONTAL, 0, 100, 30);
-    public JSlider slider_height = new JSlider(JSlider.HORIZONTAL, 0, 100, 30);
-    public JSlider slider_stars = new JSlider(JSlider.HORIZONTAL, 0, 100, 30);
-    public JSlider slider_covid = new JSlider(JSlider.HORIZONTAL, 0, 100, 10);
-    public JSlider slider_walk = new JSlider(JSlider.HORIZONTAL, 0, 180, 60);
-    public JSlider slider_waitMIN = new JSlider(JSlider.HORIZONTAL, 0, 5000, 500);
-    public JSlider slider_waitMAX = new JSlider(JSlider.HORIZONTAL, 0, 5000, 1000);
-    public JSlider slider_safe = new JSlider(JSlider.HORIZONTAL, 0, 25, 1);
-    public JSlider slider_step = new JSlider(JSlider.HORIZONTAL, 0, 30, 10);
-    public JSlider slider_timetoflag = new JSlider(JSlider.HORIZONTAL, 0, 30, 2);
+
+    private final JSlider slider_width = new JSlider(JSlider.HORIZONTAL, 0, 100, 30);
+    private final JSlider slider_height = new JSlider(JSlider.HORIZONTAL, 0, 100, 30);
+    private final JSlider slider_stars = new JSlider(JSlider.HORIZONTAL, 0, 100, 30);
+    private final JSlider slider_covid = new JSlider(JSlider.HORIZONTAL, 0, 100, 10);
+    private final JSlider slider_walk = new JSlider(JSlider.HORIZONTAL, 0, 180, 60);
+    private final JSlider slider_waitMIN = new JSlider(JSlider.HORIZONTAL, 0, 5000, 500);
+    private final JSlider slider_waitMAX = new JSlider(JSlider.HORIZONTAL, 0, 5000, 1000);
+    private final JSlider slider_safe = new JSlider(JSlider.HORIZONTAL, 0, 25, 1);
+    private final JSlider slider_step = new JSlider(JSlider.HORIZONTAL, 0, 30, 10);
+    private final JSlider slider_timetoflag = new JSlider(JSlider.HORIZONTAL, 0, 30, 2);
+
+    public JButton getB() {
+        return b;
+    }
+
+    public Settings getSettings() {
+        return settings;
+    }
+
+    public JFrame getjFrame() {
+        return jFrame;
+    }
 
     public Menu() {
         // Hashtable For Labels
@@ -171,4 +184,6 @@ public class Menu extends Container {
         settings = new Settings(slider_width.getValue(),slider_height.getValue()+2,10,slider_stars.getValue(),slider_covid.getValue()*slider_stars.getValue()/100,slider_step.getValue(),slider_walk.getValue(),slider_waitMIN.getValue(),slider_waitMAX.getValue(),slider_timetoflag.getValue(),slider_safe.getValue());
 
     }
+
+
 }

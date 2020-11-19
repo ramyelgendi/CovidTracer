@@ -1,17 +1,61 @@
 package com.company;
 
 public class Settings {
-    public final int xFrame;
-    public final int yFrame;
-    public final int unit;
-    public final int numberOfPeople;
-    public final int numberOfCovid;
-    public final int moveStep;
-    public int walkLife;
-    public final int waitTimeMIN;
-    public final int waitTimeMAX;
-    public final int timeToFlag;
-    public final int safeSocialDistance;
+    private final int xFrame;
+    private final int yFrame;
+    private final int unit;
+    private final int numberOfPeople;
+    private final int numberOfCovid;
+    private final int moveStep;
+    private final int walkLife;
+    private final int waitTimeMIN;
+
+    public int getxFrame() {
+        return xFrame;
+    }
+
+    public int getyFrame() {
+        return yFrame;
+    }
+
+    public int getUnit() {
+        return unit;
+    }
+
+    public int getNumberOfPeople() {
+        return numberOfPeople;
+    }
+
+    public int getNumberOfCovid() {
+        return numberOfCovid;
+    }
+
+    public int getMoveStep() {
+        return moveStep;
+    }
+
+    public int getWalkLife() {
+        return walkLife;
+    }
+    public int getWaitTimeMIN() {
+        return waitTimeMIN;
+    }
+
+    public int getWaitTimeMAX() {
+        return waitTimeMAX;
+    }
+
+    public int getTimeToFlag() {
+        return timeToFlag;
+    }
+
+    public int getSafeSocialDistance() {
+        return safeSocialDistance;
+    }
+
+    private final int waitTimeMAX;
+    private final int timeToFlag;
+    private final int safeSocialDistance;
 
 
     public Settings(int xFrame,int yFrame,int unit,int numberOfPeople,int numberOfCovid,int moveStep, int walkLife,int waitTimeMIN,int waitTimeMAX, int timeToFlag, int safeSocialDistance){
